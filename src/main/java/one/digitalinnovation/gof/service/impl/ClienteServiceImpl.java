@@ -17,6 +17,8 @@ public class ClienteServiceImpl implements ClienteService {
     private EnderecoRepository enderecoRepository;
     @Autowired
     private ViaCepService viaCepService;
+    @Autowired
+    private CompraRepository compraRepository;
 
     @Override
     public Iterable<Cliente> buscarTodos() {
@@ -53,6 +55,18 @@ public class ClienteServiceImpl implements ClienteService {
             });
             cliente.setEndereco(endereco);
             clienteRepository.save(cliente);
+        }
+    }
+
+    @Override
+    public void comprar(Long id, Compra compra) {
+        Optional<Cliente> clienteBd = clienteRepository.findById(id);
+        if (clienteBd.isPresent()) {
+            Cliente cliente = clienteBd.get();
+            compraRepository.save(compra);
+            cliente.addCompra(compra);
+            clienteRepository.save(cliente);
+            System.out.println(cliente);
         }
     }
 

@@ -1,6 +1,7 @@
 package one.digitalinnovation.gof.controller;
 
 import one.digitalinnovation.gof.model.Cliente;
+import one.digitalinnovation.gof.model.Compra;
 import one.digitalinnovation.gof.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,12 @@ public class ClienteRestController {
     ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
         clienteService.atualizar(id, cliente);
         return ResponseEntity.ok(cliente);
+    }
+
+    @PutMapping("/{id}/comprar")
+    ResponseEntity<Compra> comprar(@PathVariable Long id, @RequestBody Compra compra) {
+        clienteService.comprar(id, compra);
+        return ResponseEntity.ok(compra);
     }
 
     @DeleteMapping("/{id}")
